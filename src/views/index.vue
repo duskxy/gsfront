@@ -1,66 +1,78 @@
-<style scoped lang="less">
-.index {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  text-align: center;
-  h1 {
-    height: 150px;
-    img {
-      height: 100%;
-    }
-  }
-  h2 {
-    color: #666;
-    margin-bottom: 200px;
-    p {
-      margin: 0 0 50px;
-    }
-  }
-  .ivu-row-flex {
-    height: 100%;
-  }
-}
-</style>
+<!--  -->
 <template>
-  <div>
-    <div>
-      <Navhd />
-    </div>
-    <div class="index">
-      <Row
-        type="flex"
-        justify="center"
-        align="middle"
-      >
-        <Col span="24">
-        <h1>
-          <img src="../images/logo.png">
-        </h1>
-        <h2>
-          <p>Welcome to your View UI app!</p>
-          <Button @click="handleStart">Start View UI</Button>
-        </h2>
-        </Col>
-      </Row>
-    </div>
+  <div class="layout">
+    <Layout>
+      <Header>
+        <Menu
+          mode="horizontal"
+          theme="dark"
+          active-name="1"
+        >
+          <div class="layout-logo">
+            <Icon
+              type="logo-xbox"
+              size="48"
+              color="white"
+            />
+          </div>
+          <div class="layout-nav">
+            <MenuItem name="1">
+            <Icon type="ios-navigate"></Icon>
+            Item 1
+            </MenuItem>
+            <MenuItem name="2">
+            <Icon type="ios-keypad"></Icon>
+            Item 2
+            </MenuItem>
+            <MenuItem name="3">
+            <Icon type="ios-analytics"></Icon>
+            Item 3
+            </MenuItem>
+            <MenuItem name="4">
+            <Icon type="ios-paper"></Icon>
+            Item 4
+            </MenuItem>
+          </div>
+        </Menu>
+      </Header>
+      <Content :style="{padding: '0 50px'}">
+
+      </Content>
+    </Layout>
   </div>
 </template>
+
 <script>
-    import Navhd from './nav.vue'
-    export default {
-        components: {
-            Navhd
-        },
-        methods: {
-            handleStart () {
-                this.$Modal.info({
-                    title: 'Bravo',
-                    content: 'Now, enjoy the convenience of View UI.'
-                });
-            }
-        }
+export default {
+  name: 'Navhd',
+  data () {
+    return {
     }
+  }
+}
 </script>
+
+<style scoped>
+.layout {
+  border: 1px solid #d7dde4;
+  background: #f5f7f9;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.layout-logo {
+  width: 120px;
+  height: 30px;
+  /* background: #5b6270; */
+  border-radius: 3px;
+  float: left;
+  position: relative;
+  top: 10px;
+  left: 110px;
+}
+.layout-nav {
+  width: 420px;
+  margin: 0 auto;
+  margin-right: 50px;
+}
+</style>
