@@ -17,8 +17,10 @@
           </div>
           <div class="layout-nav">
             <MenuItem name="1">
-            <Icon type="ios-navigate"></Icon>
-            Item 1
+            <router-link to="/search">
+              <Icon type="ios-navigate"></Icon>
+              Item 1
+            </router-link>
             </MenuItem>
             <MenuItem name="2">
             <Icon type="ios-keypad"></Icon>
@@ -35,11 +37,7 @@
           </div>
         </Menu>
       </Header>
-      <Content :style="{padding: '0 50px'}">
-
-      </Content>
     </Layout>
-  </div>
 </template>
 
 <script>
