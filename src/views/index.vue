@@ -16,28 +16,19 @@
             />
           </div>
           <div class="layout-nav">
-            <MenuItem name="1">
-            <router-link to="/search">
+            <MenuItem name="1" to="/search">
               <Icon type="ios-navigate"></Icon>
-              Item 1
-            </router-link>
+              search
             </MenuItem>
-            <MenuItem name="2">
+            <MenuItem name="2" to="/asset">
             <Icon type="ios-keypad"></Icon>
-            Item 2
-            </MenuItem>
-            <MenuItem name="3">
-            <Icon type="ios-analytics"></Icon>
-            Item 3
-            </MenuItem>
-            <MenuItem name="4">
-            <Icon type="ios-paper"></Icon>
-            Item 4
+            asset
             </MenuItem>
           </div>
         </Menu>
       </Header>
     </Layout>
+  </div>
 </template>
 
 <script>

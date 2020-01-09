@@ -3,8 +3,8 @@
 </style>
 <template>
   <div>
-
-    <router-view></router-view>
+    <navhd></navhd>
+     <router-view></router-view>
   </div>
 </template>
 <script>

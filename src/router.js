@@ -12,6 +12,14 @@ const routers = [{
             title: ''
         },
         component: (resolve) => require(['./views/search.vue'], resolve)
+    },
+    {
+        path: '/asset',
+        name: 'asset',
+        meta: {
+            title: ''
+        },
+        component: (resolve) => require(['./views/asset.vue'], resolve)
     }
 ];
 export default routers;
