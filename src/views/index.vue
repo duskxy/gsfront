@@ -23,12 +23,15 @@
             <MenuItem name="2" to="/asset">
             <Icon type="ios-keypad"></Icon>
             asset
-            </MenuItem>
+            </MenuItem>g
           </div>
         </Menu>
       </Header>
     </Layout>
-  </div>
+    
+    </div>
+    
+    
 </template>
 
 <script>

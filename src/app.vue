@@ -3,7 +3,7 @@
 </style>
 <template>
   <div>
-    <navhd></navhd>
+      <Navhd></Navhd>
      <router-view></router-view>
   </div>
 </template>
