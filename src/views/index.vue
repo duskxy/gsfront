@@ -23,7 +23,11 @@
             <MenuItem name="2" to="/asset">
             <Icon type="ios-keypad"></Icon>
             asset
-            </MenuItem>g
+            </MenuItem>
+            <MenuItem name="3" to="/gdork">
+            <Icon type="ios-keypad"></Icon>
+            googdork
+            </MenuItem>
           </div>
         </Menu>
       </Header>

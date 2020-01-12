@@ -20,6 +20,14 @@ const routers = [{
             title: ''
         },
         component: (resolve) => require(['./views/asset.vue'], resolve)
+    },
+    {
+        path: '/gdork',
+        name: 'gdork',
+        meta: {
+            title: ''
+        },
+        component: (resolve) => require(['./views/dork.vue'], resolve)
     }
 ];
 export default routers;
