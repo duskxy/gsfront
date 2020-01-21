@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { GetSearch } from '../api/search'
 export default {
   data () {
     return {
@@ -46,7 +47,19 @@ export default {
   },
   methods: {
     searchSec () {
-      alert(JSON.stringify(this.form))
+      var dovalid = /\w*\.(?:cn|com|top|com\.tw)(?:$|\/)/
+      if ( this.form.keyword == "" ) {
+        this.$Message.error('域名不能为空');
+        return
+        } else if ( !dovalid.test(this.form.keyword )){
+        this.$Message.error('域名验证不正确');
+        return
+        }
+        
+        GetSearch().then( response => {
+ 
+          this.$Message.info(JSON.stringify(response))
+        }) 
     }
 
   }
