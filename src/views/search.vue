@@ -6,8 +6,8 @@
         <!-- <div type="flex" justify="center" align="middle" style="height:auto;padding-top:300px"> -->
         <div class="content">
         <div class="sea">
-         <Input search enter-button="Search" v-model="keyword" style="width:500px;">
-                    <Select v-model="select1" slot="prepend" style="width: 80px">
+         <Input search enter-button="Search" @on-search="searchSec" v-model="form.keyword" style="width:500px;">
+                    <Select v-model="form.select1" slot="prepend" style="width: 80px">
                        <Option value="http">http://</Option>
                        <Option value="https">https://</Option>
                    </Select>
@@ -15,7 +15,16 @@
          </Input>
          </div>
          <div class="swi">
-         <Switch v-model="switch1" @on-change="change" open="入库"/>
+           <Tooltip placement="top">
+            <Switch v-model="form.switch1" size="large">
+                <span slot="open">入库</span>
+                <span slot="close">关闭</span>
+            </Switch>
+           <div slot="content">
+
+            <p><i>是否计入数据库</i></p>
+              </div>
+          </Tooltip>
           </div>
           </div>
         
@@ -28,15 +37,25 @@
 export default {
   data () {
     return {
-      value11: "hello"
+      form: {
+        keyword: "",
+        select1: "",
+        switch1:""
+      }
     }
+  },
+  methods: {
+    searchSec () {
+      alert(JSON.stringify(this.form))
+    }
+
   }
 }
 </script>
 
 <style>
 .content {
-  width: 700px;
+  width: 800px;
   margin: 350px auto;
   /* background-color: red; */
 }
