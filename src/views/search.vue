@@ -27,7 +27,7 @@
           </Tooltip>
           </div>
           <div v-if="cmd" class="mess" ref="messref">
-            <pre v-html="mess"></pre>
+            <pre v-html="mess" ></pre>
           </div>
          </div>
 
@@ -81,10 +81,18 @@ export default {
       // 接收到消息时触发  
       this.ws.onmessage = (evt) => { 
         console.log(evt.data)
-        var meclass = document.getElementsByClassName("mess")
+        
+        this.$nextTick(() => {
+        // var me = this.$el.getElementsByClassName("mess")
+        
+        var meclass = document.querySelector(".mess")
         this.cmd = true
         this.mess += evt.data + "<br>"
-        meclass.scrollTop = meclass.div.height + 100
+        if ( meclass ) {
+        console.log(meclass.scrollTop)
+        meclass.scrollTop = meclass.scrollHeight
+        }
+        }) 
       } 
       this.ws.onclose = () => {
         console.log('Connection close !!!')
@@ -126,9 +134,10 @@ export default {
   clear: both;
   /* margin-top: 20px; */
   margin-left: 80px;
+  margin-bottom: 0px;
   max-height: 420px;
   min-height: 100px;
-  padding: 10px;
+  padding: 10px 0px 20px 20px;
   width: 500px;
   background:#333;
   color: #aaa;
