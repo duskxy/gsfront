@@ -47,14 +47,14 @@ export default {
   },
   methods: {
     searchSec () {
-      var dovalid = /\w*\.(?:cn|com|top|com\.tw)(?:$|\/)/
-      if ( this.form.keyword == "" ) {
-        this.$Message.error('域名不能为空');
-        return
-        } else if ( !dovalid.test(this.form.keyword )){
-        this.$Message.error('域名验证不正确');
-        return
-        }
+      // var dovalid = /\w*\.(?:cn|com|top|com\.tw)(?:$|\/)/
+      // if ( this.form.keyword == "" ) {
+      //   this.$Message.error('域名不能为空');
+      //   return
+      //   } else if ( !dovalid.test(this.form.keyword )){
+      //   this.$Message.error('域名验证不正确');
+      //   return
+      //   }
         
         GetSearch().then( response => {
  
@@ -62,14 +62,36 @@ export default {
         }) 
     }
 
+  },
+
+      mounted() {
+      this.ws = new WebSocket('ws://127.0.0.1:3000/api/v1/afuzz')
+      // 连接打开时触发
+      this.ws.onopen = () => {  
+        console.log("Connection open ...") 
+      }
+      // 接收到消息时触发  
+      this.ws.onmessage = (evt) => { 
+        console.log(evt) 
+        this.msgList.push(evt.data)  
+      } 
+      this.ws.onclose = () => {
+        console.log('Connection close !!!')
+      }
+    },
+    // 关闭连接 
+    beforeDestroy() {
+      this.ws.close()
+    }
   }
-}
+
 </script>
 
 <style>
 .content {
   width: 800px;
-  margin: 350px auto;
+  margin: 320px auto 0px auto;
+  
   /* background-color: red; */
 }
 .content:after {
