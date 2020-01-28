@@ -26,8 +26,11 @@
               </div>
           </Tooltip>
           </div>
+          <div v-if="cmd" class="mess" ref="messref">
+            <pre v-html="mess"></pre>
           </div>
-        
+         </div>
+
         <!-- </Col>
       
     </Row> -->
@@ -41,8 +44,11 @@ export default {
       form: {
         keyword: "",
         select1: "",
-        switch1:""
-      }
+        switch1: false
+      },
+      msgList: [],
+      mess: "",
+      cmd: false
     }
   },
   methods: {
@@ -56,10 +62,12 @@ export default {
       //   return
       //   }
         
-        GetSearch().then( response => {
+        // GetSearch().then( response => {
  
-          this.$Message.info(JSON.stringify(response))
-        }) 
+        //   this.$Message.info(JSON.stringify(response))
+        // }) 
+        console.log(this.form)
+        this.ws.send(JSON.stringify(this.form))
     }
 
   },
@@ -72,8 +80,11 @@ export default {
       }
       // 接收到消息时触发  
       this.ws.onmessage = (evt) => { 
-        console.log(evt) 
-        this.msgList.push(evt.data)  
+        console.log(evt.data)
+        var meclass = document.getElementsByClassName("mess")
+        this.cmd = true
+        this.mess += evt.data + "<br>"
+        meclass.scrollTop = meclass.div.height + 100
       } 
       this.ws.onclose = () => {
         console.log('Connection close !!!')
@@ -91,7 +102,6 @@ export default {
 .content {
   width: 800px;
   margin: 320px auto 0px auto;
-  
   /* background-color: red; */
 }
 .content:after {
@@ -103,6 +113,7 @@ export default {
   visibility:hidden; 
   }
 .sea {
+  margin-bottom: 20px;
   margin-left: 80px;
   float: left;
 }
@@ -110,5 +121,18 @@ export default {
   margin-left: 5px;
   padding-top: 5px;
   float: left;
+}
+.mess {
+  clear: both;
+  /* margin-top: 20px; */
+  margin-left: 80px;
+  max-height: 420px;
+  min-height: 100px;
+  padding: 10px;
+  width: 500px;
+  background:#333;
+  color: #aaa;
+  border-radius: 5px;
+  overflow-y: auto;
 }
 </style>
