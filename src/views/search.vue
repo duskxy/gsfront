@@ -1,15 +1,11 @@
 <!--  -->
 <template>
-  <!-- <Row >
-        <Col span="24"> -->
-        
-        <!-- <div type="flex" justify="center" align="middle" style="height:auto;padding-top:300px"> -->
         <div class="content">
         <div class="sea">
          <Input search enter-button="Search" @on-search="searchSec" v-model="form.keyword" style="width:500px;">
                     <Select v-model="form.select1" slot="prepend" style="width: 80px">
-                       <Option value="http">http://</Option>
-                       <Option value="https">https://</Option>
+                       <Option value="dirsearch">dirsearch</Option>
+                       <Option value="Sublist3r">Sublist3r</Option>
                    </Select>
                    
          </Input>
@@ -27,18 +23,17 @@
           </Tooltip>
           </div>
           <div v-if="cmd" class="mess" ref="messref">
-            <pre v-html="mess" ></pre>
+            <pre class="mess-con" v-html="mess" ></pre>
           </div>
          </div>
-
-        <!-- </Col>
-      
-    </Row> -->
 </template>
 
 <script>
 import { GetSearch } from '../api/search'
+import AnsiUp from 'ansi_up'
+
 export default {
+  name: 'search',
   data () {
     return {
       form: {
@@ -46,33 +41,37 @@ export default {
         select1: "",
         switch1: false
       },
+      ansi: undefined,
       msgList: [],
       mess: "",
-      cmd: false
+      messorg: "",
+      cmd: false,
+      meclass: {}
     }
   },
   methods: {
     searchSec () {
-      // var dovalid = /\w*\.(?:cn|com|top|com\.tw)(?:$|\/)/
-      // if ( this.form.keyword == "" ) {
-      //   this.$Message.error('域名不能为空');
-      //   return
-      //   } else if ( !dovalid.test(this.form.keyword )){
-      //   this.$Message.error('域名验证不正确');
-      //   return
-      //   }
+      this.cmd = false
+      this.mess = ""
+      this.messorg = ""
+      var dovalid = /\w*\.(?:cn|com|net|top|com\.tw)(?:$|\/)/
+      if ( this.form.keyword == "" ) {
+        this.$Message.error('域名不能为空');
+        return
+        } else if ( !dovalid.test(this.form.keyword )){
+        this.$Message.error('域名验证不正确');
+        return
+        }
         
-        // GetSearch().then( response => {
- 
-        //   this.$Message.info(JSON.stringify(response))
-        // }) 
         console.log(this.form)
         this.ws.send(JSON.stringify(this.form))
     }
 
   },
-
-      mounted() {
+  beforeMount () {
+    this.ansi = new AnsiUp()
+    },
+  mounted() {
       this.ws = new WebSocket('ws://127.0.0.1:3000/api/v1/afuzz')
       // 连接打开时触发
       this.ws.onopen = () => {  
@@ -80,23 +79,23 @@ export default {
       }
       // 接收到消息时触发  
       this.ws.onmessage = (evt) => { 
-        console.log(evt.data)
-        
-        this.$nextTick(() => {
-        // var me = this.$el.getElementsByClassName("mess")
-        
-        var meclass = document.querySelector(".mess")
+        //console.log(evt.data)
         this.cmd = true
-        this.mess += evt.data + "<br>"
-        if ( meclass ) {
-        console.log(meclass.scrollTop)
-        meclass.scrollTop = meclass.scrollHeight
-        }
+        this.$nextTick(() => {
+        var me = this.$el.getElementsByClassName("mess")
+        this.meclass = document.querySelector(".mess")
+        this.messorg += evt.data
+        this.mess = this.ansi.ansi_to_html(this.messorg).replace(/\n/gm, '<br>')
         }) 
+        
       } 
       this.ws.onclose = () => {
         console.log('Connection close !!!')
       }
+    },
+    updated () {
+    // auto-scroll to the bottom when the DOM is updated
+    this.meclass.scrollTop = this.meclass.scrollHeight
     },
     // 关闭连接 
     beforeDestroy() {
@@ -110,7 +109,6 @@ export default {
 .content {
   width: 800px;
   margin: 320px auto 0px auto;
-  /* background-color: red; */
 }
 .content:after {
   clear:both;
@@ -132,15 +130,14 @@ export default {
 }
 .mess {
   clear: both;
-  /* margin-top: 20px; */
-  margin-left: 80px;
+  font-family: monospace;
+  margin-left: 10px;
   margin-bottom: 0px;
   max-height: 420px;
   min-height: 100px;
   padding: 10px 0px 20px 20px;
-  width: 500px;
-  background:#333;
-  color: #aaa;
+  width: 700px;
+  background:#000;
   border-radius: 5px;
   overflow-y: auto;
 }
