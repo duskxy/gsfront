@@ -82,7 +82,7 @@ export default {
         //console.log(evt.data)
         this.cmd = true
         this.$nextTick(() => {
-        var me = this.$el.getElementsByClassName("mess")
+        // var me = this.$el.getElementsByClassName("mess")
         this.meclass = document.querySelector(".mess")
         this.messorg += evt.data
         this.mess = this.ansi.ansi_to_html(this.messorg).replace(/\n/gm, '<br>')
