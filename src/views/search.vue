@@ -137,7 +137,7 @@ export default {
   min-height: 100px;
   padding: 10px 0px 20px 20px;
   width: 700px;
-  background:#000;
+  background:#222;
   border-radius: 5px;
   overflow-y: auto;
 }
