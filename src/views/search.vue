@@ -73,8 +73,7 @@ export default {
     },
   mounted() {
       let path = window.location.hostname
-      // const wsuri = 'ws://'+ path + ':3000/api/v1/afuzz'
-      const wsuri = 'ws://'+ path + '/api/v1/afuzz'
+      const wsuri = 'ws://'+ path + ':3000/api/v1/afuzz'
       this.ws = new WebSocket(wsuri)
       // 连接打开时触发
       this.ws.onopen = () => {  
