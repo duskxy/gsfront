@@ -72,7 +72,9 @@ export default {
     this.ansi = new AnsiUp()
     },
   mounted() {
-      this.ws = new WebSocket('ws://127.0.0.1:3000/api/v1/afuzz')
+      let path = window.location.hostname
+      const wsuri = 'ws://'+ path + ':3000/api/v1/afuzz'
+      this.ws = new WebSocket(wsuri)
       // 连接打开时触发
       this.ws.onopen = () => {  
         console.log("Connection open ...") 
