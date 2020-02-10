@@ -54,7 +54,7 @@ export default {
       this.cmd = false
       this.mess = ""
       this.messorg = ""
-      var dovalid = /\w*\.(?:cn|com|net|top|com\.tw)(?:$|\/)/
+      var dovalid = /\w*\.(?:cn|com|net|me|top|com\.tw)(?:$|\/)/
       if ( this.form.keyword == "" ) {
         this.$Message.error('域名不能为空');
         return
